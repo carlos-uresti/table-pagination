@@ -8,7 +8,6 @@ const useFetch = (url, batch) => {
     
     async function callPage() {
       setIsLoading(true);
-      console.log(url);
       const response = await fetch(url);
       const results = await response.json().then(setIsLoading(false));
       return setRows(await results);
