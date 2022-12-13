@@ -10,8 +10,8 @@ const PaginatedTable = () => {
   const rowsPerPage = 10;
   const [page, setPage] = useState(1); //makes table start at page 1
   const [batch, setBatch] = useState(1);//batches of 50 records at a time
-  const url = `http://localhost:3000/infads?_page=${batch}&_limit=${limit}`;
-  const { rows } = useFetch(url, batch);
+  const url = ` http://localhost:8000/data?_page=${batch}&_limit=${limit}`;
+  const { rows, isLoading } = useFetch(url, batch);
   const { slice, range } = useTable(rows, page, rowsPerPage);
 
   const handleRowSelect = (e) => {
@@ -21,7 +21,7 @@ const PaginatedTable = () => {
   return (
     <>
       <Table className="title" size="sm" striped bordered hover>
-        <thead className="tableRowHeader">
+        <thead className="header">
           <tr>
             <th className="tableHeader">Select</th>
             <th className="tableHeader">First Name</th>
@@ -38,7 +38,7 @@ const PaginatedTable = () => {
                 <Button
                   key={element.key}
                   size="sm"
-                  variant="primary"
+                  variant="dark"
                   value={element.first_name}
                   onClick={(e) => handleRowSelect(e)}
                 >
@@ -61,6 +61,7 @@ const PaginatedTable = () => {
         page={page}
         batch={batch}
         setBatch={setBatch}
+        isLoading={isLoading}
       />
     </>
   );
